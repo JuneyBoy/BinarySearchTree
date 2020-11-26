@@ -206,28 +206,53 @@ class BinarySearchTree{
 };
 
 int main(){
-    Key* key = new Key(5);
-    Key* key2 = new Key(0);
-    Key* key3 = new Key(7);
 
-    BinarySearchTree* BST = new BinarySearchTree(key);
+    int keyVal;
+    int operation;
+    int searchVal;
 
-    BST->add_node(key2);
-    BST->add_node(key3);
+    cin >> keyVal;
 
-    BST->enumerate(BST->get_root());
+    BinarySearchTree* BST = new BinarySearchTree(new Key(keyVal));
 
-    /**
-    Stack* stack = new Stack();
+    while(cin >> keyVal){
+        Key* key = new Key(keyVal);
+        BST->add_node(key);
+    }    
 
-    stack->push(5);
-    stack->push(0);
-    stack->pop();
-    stack->push(7);
-    stack->pop();
-    stack->pop();
-    **/
+    cin >> operation;
 
-    
+    cin >> searchVal;
+
+    switch (operation){
+        case 1:
+            Key* searchNode = BST->search(searchVal);
+            if(searchNode != nullptr){
+                BST->enumerate(BST->get_root());
+            }
+            else{
+                cout << -1;
+            }
+            break;
+        case 2:
+            Key* insertNode = new Key(searchVal);
+            bool result = BST->add_node(insertNode);
+
+            if(result){
+                BST->enumerate(BST->get_root());
+            }
+            else{
+                cout << -1;
+            }
+            break;
+        case 3:
+            bool result = BST->remove_node(searchVal);
+            if(result){
+                BST->enumerate(BST->get_root());
+            }
+            else{
+                cout << -1;
+            }
+    }
 
 }
