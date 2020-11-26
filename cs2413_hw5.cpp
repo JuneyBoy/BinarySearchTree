@@ -73,7 +73,7 @@ class Stack{
 class BinarySearchTree{
     private:
         Key* root;
-        Stack* bstStack;
+        Stack* bstStack = new Stack();
     public:
         BinarySearchTree(Key* root){
             this->root = root;
@@ -200,7 +200,7 @@ class BinarySearchTree{
             enumerate(node->get_left_child());
             enumerate(node->get_right_child());
 
-            bstStack->pop();
+            this->bstStack->pop();
 
         }
 };
@@ -215,7 +215,7 @@ int main(){
     BST->add_node(key2);
     BST->add_node(key3);
 
-    //BST->enumerate(BST->get_root());
+    BST->enumerate(BST->get_root());
 
     /**
     Stack* stack = new Stack();
