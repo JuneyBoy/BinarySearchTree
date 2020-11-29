@@ -114,6 +114,7 @@ class BinarySearchTree{
 
                 if (currNode->get_key_val() > node->get_key_val()){
                     if(currNode->get_left_child() == nullptr){
+                        node->set_parent(currNode);
                         currNode->set_left_child(node);
                         break;
                     }
@@ -122,6 +123,7 @@ class BinarySearchTree{
 
                 else {
                     if(currNode->get_right_child() == nullptr){
+                        node->set_parent(currNode);
                         currNode->set_right_child(node);
                         break;
                     }
@@ -207,25 +209,30 @@ class BinarySearchTree{
 
 int main(){
 
+    int rootVal;
     int keyVal;
     int operation;
     int searchVal;
 
-    cin >> keyVal;
+    cin >> rootVal;
 
-    BinarySearchTree* BST = new BinarySearchTree(new Key(keyVal));
+    Key* key = new Key(rootVal);
+
+    BinarySearchTree* BST = new BinarySearchTree(key);
 
     while(cin >> keyVal){
         Key* key = new Key(keyVal);
         BST->add_node(key);
-    }    
+    }
+
+    cin.clear();
+    cin.ignore(1,'s');
 
     cin >> operation;
-
     cin >> searchVal;
 
     switch (operation){
-        case 1:
+        case 1: {
             Key* searchNode = BST->search(searchVal);
             if(searchNode != nullptr){
                 BST->enumerate(BST->get_root());
@@ -234,25 +241,28 @@ int main(){
                 cout << -1;
             }
             break;
-        case 2:
+        }
+        case 2: {
             Key* insertNode = new Key(searchVal);
-            bool result = BST->add_node(insertNode);
-
-            if(result){
+            if(BST->add_node(insertNode)){
                 BST->enumerate(BST->get_root());
             }
             else{
                 cout << -1;
             }
             break;
-        case 3:
-            bool result = BST->remove_node(searchVal);
-            if(result){
+        }
+        case 3: {
+            if(BST->remove_node(searchVal)){
                 BST->enumerate(BST->get_root());
             }
             else{
                 cout << -1;
             }
+            break;
+        }
     }
+
+    return 0;
 
 }
